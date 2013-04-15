@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
@@ -30,29 +31,29 @@ struct proof_item
 
 std::vector<proof_item> input_proof, output_proof;
 
-void print_proof(std::vector<proof_item> const& proof)
+void print_proof(std::vector<proof_item> const& proof, std::ofstream& out)
 {
     for (size_t i = 0; i < proof.size(); i++)
     {
-        std::cout << i << " ";
+        out << i << " ";
         switch (proof[i].from)
         {
         case AXIOM:
-            std::cout << "ax\t\t";
+            out << "ax\t\t";
             break;
         case SUGGESTION:
-            std::cout << "sg\t\t";
+            out << "sg\t\t";
             break;
         case MODUS_PONENS:
-            std::cout << "mp " << proof[i].num_1 << " " <<
+            out << "mp " << proof[i].num_1 << " " <<
                 proof[i].num_2 << '\t';
             break;
         }
-        std::cout << proof[i].expr << std::endl;
+        out << proof[i].expr << std::endl;
     }
 }
 
-std::vector<proof_item> read_proof(int n)
+std::vector<proof_item> read_proof(int n, std::ifstream& in)
 {
     std::vector<proof_item> result;
     std::string from, expr;
@@ -60,23 +61,23 @@ std::vector<proof_item> read_proof(int n)
     int tmp_num; char tmp;
     for (int i = 0; i < n; i++)
     {
-        std::cin >> tmp_num >> from;
+        in >> tmp_num >> from;
         switch(from.at(0))
         {
         case 'a': // axiom
             getchar(); getchar();
-            getline(std::cin, expr);
+            getline(in, expr);
             result.push_back( proof_item(expr, AXIOM) );
             break;
         case 's': // suggestion
             getchar(); getchar();
-            getline(std::cin, expr);
+            getline(in, expr);
             result.push_back( proof_item(expr, SUGGESTION) );
             break;
         case 'm': // modus ponens
-            std::cin >> num_1 >> num_2;
+            in >> num_1 >> num_2;
             getchar();
-            getline(std::cin, expr);
+            getline(in, expr);
             result.push_back( proof_item(expr, MODUS_PONENS, num_1, num_2) );
             break;
         }
@@ -133,18 +134,18 @@ void make_proof(std::string sgst, std::vector<proof_item> const& input,
 
 int main()
 {
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    std::ifstream in("input.txt");
+    std::ifstream out("output.txt");
 
     int n;
     std::string suggestion;
-    std::cin >> suggestion >> n;
+    in >> suggestion >> n;
 
-    input_proof = read_proof(n);
-    std::cout << suggestion << " " << n << std::endl;
+    input_proof = read_proof(n, in);
+    out << suggestion << " " << n << std::endl;
     return 0;
     make_proof(suggestion, input_proof, output_proof);
-    print_proof(output_proof);
+    print_proof(output_proof, out);
 
     return 0;
 }

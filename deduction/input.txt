@@ -1,0 +1,11 @@
+A
+9
+0 sg		A
+1 ax		A -> (B -> A & B)
+2 mp 0 1	B -> A & B
+3 ax		(B -> A & B) -> (B -> (A & B -> C)) -> (B -> C)
+4 mp 2 3	(B -> (A & B -> C)) -> (B -> C)
+5 ax		A & B -> C
+6 ax		(A & B -> C) -> (B -> (A & B -> C))
+7 mp 5 6	B -> (A & B -> C)
+8 mp 7 4	B -> C

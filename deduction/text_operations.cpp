@@ -30,3 +30,12 @@ std::string second_axiom(std::string const& a, std::string const& b,
 {
 	return "(" + implication(a, b) + ") -> (" + second_axiom_end(a, b, c) + ")";
 }
+
+void trim_leading_whitespaces(std::string& src)
+{
+    static const std::string whitespaces = " \t";
+    size_t pos = src.find_first_not_of(whitespaces);
+    if (pos == std::string::npos)
+        return;
+    src.erase(0, pos + 1);
+}

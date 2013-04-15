@@ -14,4 +14,6 @@ std::string second_axiom_end(std::string const& a, std::string const& b,
 std::string second_axiom(std::string const& a, std::string const& b,
 		std::string const& c);
 
+void trim_leading_whitespaces(std::string& src);
+
 #endif
