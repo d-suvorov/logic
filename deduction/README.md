@@ -15,8 +15,8 @@
 Пример:
 A
 4
-0 sg		A
-1 ax		A -> (B -> A & B)
-2 mp 0 1	B -> A & B
-3 ax		(B -> A & B) -> (B -> (A & B -> C)) -> (B -> C)
+0 sg      A
+1 ax      A -> (B -> A & B)
+2 mp 0 1  B -> A & B
+3 ax      (B -> A & B) -> (B -> (A & B -> C)) -> (B -> C)
 
