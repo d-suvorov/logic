@@ -37,5 +37,5 @@ void trim_leading_whitespaces(std::string& src)
     size_t pos = src.find_first_not_of(whitespaces);
     if (pos == std::string::npos)
         return;
-    src.erase(0, pos + 1);
+    src.erase(0, pos);
 }

@@ -57,27 +57,28 @@ std::vector<proof_item> read_proof(int n, std::ifstream& in)
 {
     std::vector<proof_item> result;
     std::string from, expr;
-    int num_1, num_2;
-    int tmp_num; char tmp;
+    int num_1, num_2, tmp_num;
+
     for (int i = 0; i < n; i++)
     {
         in >> tmp_num >> from;
+
         switch(from.at(0))
         {
         case 'a': // axiom
-            getchar(); getchar();
             getline(in, expr);
+            trim_leading_whitespaces(expr);
             result.push_back( proof_item(expr, AXIOM) );
             break;
         case 's': // suggestion
-            getchar(); getchar();
             getline(in, expr);
+            trim_leading_whitespaces(expr);
             result.push_back( proof_item(expr, SUGGESTION) );
             break;
         case 'm': // modus ponens
             in >> num_1 >> num_2;
-            getchar();
             getline(in, expr);
+            trim_leading_whitespaces(expr);
             result.push_back( proof_item(expr, MODUS_PONENS, num_1, num_2) );
             break;
         }
@@ -135,15 +136,13 @@ void make_proof(std::string sgst, std::vector<proof_item> const& input,
 int main()
 {
     std::ifstream in("input.txt");
-    std::ifstream out("output.txt");
+    std::ofstream out("output.txt");
 
     int n;
     std::string suggestion;
     in >> suggestion >> n;
 
     input_proof = read_proof(n, in);
-    out << suggestion << " " << n << std::endl;
-    return 0;
     make_proof(suggestion, input_proof, output_proof);
     print_proof(output_proof, out);
 
