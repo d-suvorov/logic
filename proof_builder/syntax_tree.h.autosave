@@ -38,3 +38,10 @@ private:
     std::string to_string_impl() const;
 };
 
+struct equals_pred {
+    node *formula;
+    bool operator()(node const* rhs) const {
+        return formula->equals(rhs);
+    }
+};
+

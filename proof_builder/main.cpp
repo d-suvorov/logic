@@ -11,19 +11,19 @@ void solve_task_2_1(std::ifstream& in, std::ofstream& out) {
 }
 
 void solve_task_2_2(std::ifstream& in, std::ofstream& out) {
-	using namespace proof_utils;
+    using namespace proof_utils;
     print( out, prove(parser::parse(&in)) );
 }
 
 int main() {
-	std::ifstream in("input.txt");
-	std::ofstream out("output.txt");
+    std::ifstream in("input.txt");
+    std::ofstream out("output.txt");
 
-	proof_utils::init_axioms();
+    proof_utils::init_axioms();
 
     solve_task_2_2(in, out);
 
 
 
-	return 0;
+    return 0;
 }

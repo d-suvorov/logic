@@ -8,7 +8,7 @@ std::string get_string(logical_operation operation) {
 	case DISJUNCTION:
 		return " | ";
 	case IMPLICATION:
-		return " -> ";
+        return " -> ";
 	case NEGATION:
 		return "!";
 	default:

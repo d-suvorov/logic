@@ -10,8 +10,8 @@ implication: disjunction [ -> implication ]
 disjunction: conjunction [ | disjunction ]
 conjunction: term [ & conjunction ]
        term: (implication)
-	         !term
-			 variable
+             !term
+             variable
 */
 
 namespace parser {
