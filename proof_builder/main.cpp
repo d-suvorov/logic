@@ -21,7 +21,9 @@ int main() {
 
 	proof_utils::init_axioms();
 
-    //solve_task_2_2(in, out);
+    solve_task_2_2(in, out);
+
+
 
 	return 0;
 }

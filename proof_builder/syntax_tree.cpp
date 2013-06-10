@@ -38,7 +38,13 @@ std::string node::to_string_impl() const {
 	            right->to_string_impl() + ")";
 }
 
-bool node::operator==(node const* rhs) const {
+node* node::change(std::map<char, node*> chg) const {
+    if (left == nullptr)
+        return chg[variable];
+    return new node(left, right ? right->change(chg) : nullptr, operation, variable);
+}
+
+bool node::equals(node const* rhs) const {
 	if (rhs == nullptr)
 		return false;
 	if (operation != rhs->operation || variable != rhs->variable)

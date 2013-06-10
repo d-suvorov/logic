@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <map>
 
 enum logical_operation {
 	CONJUNCTION, DISJUNCTION,
@@ -29,7 +30,8 @@ struct node {
 			delete right;
 	}
 
-	bool operator==(node const* rhs) const;
+    node* change(std::map<char, node*> chg) const;
+    bool equals(node const* rhs) const;
 
 	std::string to_string() const;
 private:

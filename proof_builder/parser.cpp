@@ -115,9 +115,7 @@ node* parse(std::istream *in) {
 }
 
 node* parse(std::string const& src) {
-    //std::istream in = std::istringstream(src);
     return parse( new std::istringstream(src) );
-    //return nullptr;
 }
 
 

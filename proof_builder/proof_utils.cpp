@@ -1,8 +1,13 @@
 #include "syntax_tree.h"
 #include "parser.h"
 #include <vector>
+#include <string>
 
 namespace proof_utils {
+
+const std::string AXIMOM_REF = "axiom ";
+const std::string MODUS_PONENS_REF = "m.p. ";
+const std::string SUGGEST_REF = "suggested";
 
 const int NUMBER_OF_AXIOMS = 10;
 std::vector<node*> axioms;
@@ -27,17 +32,33 @@ void init_axioms() {
 	}
 }
 
-bool equals(node const* lhs, node const* rhs) {
-	return false;
+void diff(node* lhs, node* rhs, std::map<char, node*>& chg) {
+    if (lhs == nullptr && rhs == nullptr)
+        return;
+    if (rhs->left == nullptr) { // rhs is variable
+        chg.insert( std::pair<char, node*>(rhs->variable, lhs) );
+        return;
+    }
+    if (lhs->operation != rhs->operation)
+        return;
+    diff(lhs->left, rhs->left, chg);
+    diff(lhs->right, rhs->right, chg);
 }
 
-int no_of_axiom(node const* formula) {
-
+int no_of_axiom(node* formula) {
+    std::map<char, node*> chg;
+    node *axiom;
+    for (size_t i = 0; i < axioms.size(); i++) {
+        chg.clear();
+        axiom = axioms[i];
+        diff(formula, axiom, chg);
+        if (formula->equals( axiom->change(chg) ))
+            return i;
+    }
 	return -1;
 }
 
 void find_modus_ponens() {
-
 }
 
 void print(std::ostream& out, std::vector<node*> const& proof,
